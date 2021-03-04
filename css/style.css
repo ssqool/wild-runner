@@ -4,6 +4,20 @@
     overflow: hidden;
 }
 
+.score_info {
+    display: flex;
+    justify-content: space-around;
+    background: #002B03;
+    height: 7vh;
+}
+
+.best, .current_score {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: large;
+}
+
 #game {
     position: relative;
     background: url("../img/background.jpg");
@@ -21,7 +35,7 @@
     background: url('../img/ground.png');
     background-position: center center;
     background-color: black;
-    top: calc( 100% - 80px);
+    top: calc(100% - 80px);
     height: 80px;
     width: 100%;
 }
@@ -37,7 +51,7 @@
 }
 
 .dinoJump {
-    animation: dinoJump 1s linear;
+    animation: dinoJump 0.9s linear;
 }
 
 @keyframes dinoJump {
@@ -46,7 +60,7 @@
     }
 
     50% {
-        top: calc(100% - 80px - 300px);
+        top: calc(100% - 80px - 250px);
     }
 
     100% {
@@ -55,12 +69,12 @@
 }
 
 #cactus {
-    width: 40px;
+    width: 113px;
     height: 80px;
     background-image: url("../img/stone.png");
-    background-size: 40px 80px;
+    background-size: 113px 80px;
     position: relative;
-    top: calc(100% - 80px - 180px);
+    top: calc(100% - 80px - 150px);
     left: calc(100% - 20px);
     animation: cactusMoivng 2s infinite linear;
 }
@@ -70,7 +84,7 @@
         left: calc(100% - 20px);
     }
     100% {
-        left: calc(0% - 20px);
+        left: calc(0% - 150px);
     }
 }
 
@@ -90,6 +104,7 @@
 
 .score {
     color: white;
+    font-size: 32px;
 }
 
 .reset {
@@ -99,7 +114,7 @@
     background-color: black;
     border-radius: 8px;
     padding: 10px;
-    margin: 25px;
+    margin: 20px;
     animation: jittery 4s infinite;
 }
 @keyframes jittery {

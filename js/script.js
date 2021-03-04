@@ -1,11 +1,19 @@
-let game = document.querySelector('#game')
+let game = document.querySelector('#game');
 let dino = document.querySelector('#dino');
-let cactus = document.querySelector('#cactus')
-let restartButton = document.querySelector('.restart')
+let cactus = document.querySelector('#cactus');
+let restartButton = document.querySelector('.restart');
 let scoreHtml = document.querySelector('.score');
+let currentScore = document.querySelector('.current_score');
+let scoreBest = document.querySelector('.best');
 let scoreCounter = 0;
 
-document.addEventListener('click', () => {
+if (!localStorage.best) {
+    localStorage.best = 0;
+} else if (localStorage.best) {
+
+}
+
+let jumpOnclick = () => {
     if (!dino.classList.contains('dinoJump')) {
         dino.classList.add('dinoJump')
     } else {
@@ -14,23 +22,32 @@ document.addEventListener('click', () => {
     setTimeout( () => {
         dino.classList.remove('dinoJump');
     }, 1000)
-})
+}
+document.addEventListener('click', jumpOnclick)
 
-let maxDinoHeight = parseInt(getComputedStyle(dino).getPropertyValue('top')) - 80;
-console.log(maxDinoHeight)
+let maxDinoHeight = parseInt(getComputedStyle(dino).getPropertyValue('top')) - 60;
+console.log(maxDinoHeight);
 
 let collision = setInterval( () => {
     let dinoTop = parseInt(getComputedStyle(dino).getPropertyValue('top'));
     let cactusLeft = parseInt(getComputedStyle(cactus).getPropertyValue('left'));
 
-    if (cactusLeft < 120 && cactusLeft > 20 && dinoTop >= maxDinoHeight) {
+    scoreBest.innerHTML = `Best: ${localStorage.best}`;
+
+    if (cactusLeft < 100 && cactusLeft > 0 && dinoTop >= maxDinoHeight) {
         const resetButton = document.querySelector('.reset');
+        scoreCounter >= localStorage.best ? localStorage.best = scoreCounter : localStorage.best;
         scoreHtml.innerHTML = `Score: ${scoreCounter}`;
         restartButton.style.display = 'flex';
-        game.style.opacity = '0.2'
+        game.style.opacity = '0.1'
         clearInterval(addingScore);
-        resetButton.addEventListener('click', ()=>{location.href = 'play.html'})
+        removeEventListener('click', jumpOnclick);
+        resetButton.addEventListener('click', ()=>{location.href = 'play.html'});
+        return
     }
 }, 3)
 
-let addingScore = setInterval( () => ++scoreCounter, 2000)
+let addingScore = setInterval( () => {
+    ++scoreCounter
+    currentScore.innerHTML = `Score: ${scoreCounter}`
+}, 2000)
